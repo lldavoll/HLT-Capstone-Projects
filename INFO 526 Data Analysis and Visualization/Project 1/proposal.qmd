@@ -1,0 +1,110 @@
+---
+title: "Analyzing Species Distribution and Conservation Status in the Most Visited U.S. National Parks"
+subtitle: "Proposal"
+authors: Pallikila, Sree Paada Reddy @sree-paada
+         Patel, Het @hetpatel-7
+         Acevedo Cardona, Davo @lldavoll
+         Durgut, Gozde @sree-paada
+name: "Power VI"
+    affiliations:
+      - Durgut, Gozde: ", Second Language Acquisition and Teaching, GIDP, University of Arizona"
+      - Davo Acevedo: "College of Behavioural Sciences, University of Arizona"
+      - Pallikila, Sree Paada Reddy: ", University of Arizona"
+      - Patel, Het: ", University of Arizona"
+description: "Data Visualization"
+format:
+  html:
+    code-tools: true
+    code-overflow: wrap
+    code-line-numbers: true
+    embed-resources: true
+editor: visual
+code-annotations: hover
+execute:
+  warning: false
+---
+
+```{r}
+#| label: load-pkgs
+#| message: false
+library(tidyverse)
+```
+
+## Dataset
+
+```{r}
+#| label: load-dataset
+#| message: false
+```
+
+The dataset that we chose contains species data from the most visited U.S. National Parks, detailing things such as taxonomy, conservation status, and observations of various species. This dataset focuses on the 15 most visited parks in the US.
+
+1.1 Dataset Provenance
+
+Source: The name of the dataset is most_visited_nps_species_data.csv and it comes from https://irma.nps.gov/NPSpecies/Search/SpeciesList.
+
+Collection method: For this dataset the U.S. Department of Interior collects its data through a combination of methods to capture the wildlife that includes: direct observation, field surveys, camera traps, acoustic monitoring, citizen science programs, and sometimes aerial photography.
+
+Timeframe: This data was created on September 19th, 2013, then it had some changes on March 15th 2017, October 18 2019 and the most recent update was on September 2nd 2024.
+
+Dimensions: This dataset has the following dimensions...
+
+Number of rows: 61,119 rows Number of columns: 28 columns (variables)
+
+Key Variables: ParkName: Name of the national park. CategoryName: Category of species (e.g., Mammal, Bird). SciName: Scientific name. CommonNames: Common names of the species. Order, Family: Taxonomic classification. TEStatus: Threatened/Endangered status. Observations: Number of recorded observations.
+
+Citations: NPSpecies - The National Park Service biodiversity database. https://irma.nps.gov/npspecies/ Accessed 2/10/2025/11:15a.m. (MST)
+
+## Rationale for Choosing This Dataset
+
+This dataset contains information on different species living in the U.S. National Parks. Our main reasons for choosing this dataset were as follows:
+
+1.  The dataset includes several kinds of variables, such as nominal, ordinal, categorical, and numerical data. This variety makes it well- suited for different types of data visualizations, helping us uncover trends and patterns effectively.
+
+2.  It provides species classification details (Category, Order, Family, Scientific Name), allowing us to explore biodiversity across different national parks.
+
+3.  Our main focus is to learn more about the endangered status of different species and how their distribution varies within these national parks. And we have several variables such as TEStatus (Threatened/Endangered Status), StateStatus, GRank and SRank through which we can understand these patterns.
+
+## Questions
+
+1.  How do global conservation ranks vary across 15 most visited US national parks? (park name, G_ranks, species count)
+
+2.  How are species distributed across national parks by category? (park name, species category, species count)?
+
+## Analysis plan
+
+For question 1 we want to approach the problem with the variation of global conservation ranks (G_ranks) across the 15 most visited U.S. National Parks. Focusing on comparing the G_ranks and the number of species per park. For this case we will use: A bar chart will be created to visually represent the distribution of  conservation rank across each park, with the height of the bars indicating the number of species in a national park and stacks showing the distribution of conservation rank. A thematic map can be created to visually represent the distribution of species across the parks. 
+
+Regarding question 2, we will analyze the distribution of species by category across the 15 national parks. This will involve calculating the total number of species for each category per park and comparing across different parks. In this case the approach will involve: Bubble Plot: A pie chart will be used to display the different species in each category across parks, with each bubble representing a national park and segments of it representing different species categories.
+
+## Plan for Answering Each Question
+
+For answering both questions there are some challenges that we need to overcome:
+
+1.  At first glance over the necessary variables that are required to answer both the questions, we came across a lot of null values. We need to decide on the technique for overcoming this problem.
+
+2.  Another issue that we need to work upon is the way of presenting this information, as there are 15 different National Parks in this dataset. And having plots containing all 15 will make the visualization very congested. So, we need to decide on either showing some of the important national parks or change the visualization format so that we can easily fit all the information without any congestion. Alternatively, we might use facet grids to create separate small bar charts per park, and color-code the bars to highlight endangered/threatened species.
+
+3.  There are 4 different variables that show the endangered status of a species, so as of now we have decided to go with the GRank (Global Rank
+
+-   ranking of rarity of species), but we also need to compare it with TEStatus(Threatened/Endangered Status), StateStatus and SRank(Subnational Rank).
+
+4.  For Question 1, we are planning to plot a bar graph for the Number of Species across each National Park, and within each bar we will plot the proportion of endangered species based on the GRank .
+
+5.  For Question 2, we are planning to plot different kinds of species based on their category in each national park. We might use pie charts inside a bubble plot to showcase this information.
+
+6.  Once we are done with all of this work, we will then improve our visualization aesthetically using different thematic elements.
+
+7.  Finally we want to keep our Data-to-ink ratio really high without losing any necessary information.
+
+## **Weekly “Plan of Attack”**
+
+|  |  |  |  |  |  |
+|------------|------------|------------|------------|------------|------------|
+| **Task name** | **Status** | **Assignee** | **Due** | **Priority** | **Summary** |
+| **Missing data handling** | **In-progress** | Patel, Davo | Feb 16 | High | Address null values and ensure correct loading in R |
+| **Visualization Congestion** | **In-progress** | Gozde, Paada | Feb 21 | Medium | Select a subset of national parks or adjust visualization format to reduce clutter |
+| **Endangered Status** | **In-progress** | Paada, Davo, Patel, Gozde | Feb 25 | High | Decide whether to use GRank alone or integrate TEStatus and SRank for analysis |
+| **Conservation Rank Analysis (Q1)** | **Not started** | Paada, Patel | Feb 28 | High | Create a bar chart and thematic map to compare species conservation ranks across parks |
+| **Species Distribution Analysis (Q2)** | **Not started** | Davo, Gozde | March 3 | High | Generate a stacked bar chart or bubble plot to visualize species distribution by category. |
+| **Revision, final touches and submission** | **Not started** | Gozde, Davo, Paada, Patel, | March 4 | High | Proofread all written sections to ensure clarity and coherence, and verify that all required project components are included. |

@@ -1,0 +1,104 @@
+---
+title: "Analyzing Species Distribution and Conservation Status in the Most Visited U.S. National Parks"
+subtitle: "INFO 526 - Spring 2025 - Project 01"
+authors: Pallikila, Sree Paada Reddy @sree-paada
+         Patel, Het @hetpatel-7
+         Acevedo Cardona, Davo @lldavoll
+         Durgut, Gozde @sree-paada
+  - name: "PowerVI"
+        affiliations:
+      - Durgut, Gozde: ", Second Language Acquisition and Teaching, GIDP, University of Arizona"
+      - Davo Acevedo: "College of Behavioural Sciences, University of Arizona"
+      - Pallikila, Sree Paada Reddy: ", University of Arizona"
+      - Patel, Het: ", University of Arizona" 
+description: "Project description"
+format:
+   html:
+    code-tools: true
+    code-overflow: wrap
+    embed-resources: true
+editor: visual
+execute:
+  warning: false
+  echo: false
+---
+
+## Abstract
+
+## Introduction
+
+Our dataset is obtained from the "Most Visited U.S. National Parks Species Data," which provides information on the different animals and ecosystems present in the top 15 most visited United States national parks. The dataset was created by the Department of the Interior, which collected the data using various methods, such as direct observation, field surveys, camera traps, and citizen science. This dataset can be utilized to learn about biodiversity in these conservation areas It contains:
+
+-   61,119 species records.
+
+-   28 variables, offering taxonomic information (Order, Family, Scientific Names), conservation status (Threatened/Endangered Status, Global and Subnational Ranks).
+
+-   Observation records by species.
+
+The dataset began in September 2013, and the most recent update was in September 2024. This dataset is an important resource for research on species distribution patterns in U.S. national parks. With this dataset, we can study and analyze variables such as park designations, species classifications, and conservation status determinations. In addition, we can examine the heterogeneity of biodiversity among these ecological assets and identify which parks hold the greatest concentrations of rare or threatened species.
+
+## Conservation Status Across the Parks (Question 1).
+
+### Introduction:
+
+Our first question is: ***How do global conservation ranks vary across 15 most visited US national parks?***
+
+Understanding conservation status of different species in the parks can provide valuable information for biodiversity conservation efforts. This question examines how global conservation ranks (G_ranks) vary across the 15 parks, which will help identify which parks serve as refuges for threatened or rare species. To address this question, it is necessary to examine the relation of G_ranks (global ranks for conservation status) and the number of species categorized under each conservation status.
+
+### Approach:
+
+To investigate how species are distributed across national parks by conservation statues, we utilized a combination of spatial and categorical visualizations. The following methods were employed:
+
+-   **Stacked Bar Chart:**  We created a Stacked Bar Chart for each national park such that the length of each individual bars showcase the number of species within that national park. The stacks in a particular bar details the proportions of different conservation statuses based on the GRank.
+
+We also try to show the null values within each park separately using an image of the park by blackening an area of the image based on the number of null values present within that park. The main reason for doing this was because without the null values, most of the species in all the parks looked secured, so we tried to highlight this missing data to showcase the unknown status of many species within the park. 
+
+### Analysis:
+
+For ensuring data integrity, the duplicates are initially removed by removing species with same Common names and Scientific names within a park to leave unique species records intact.
+Then the GRank values are grouped within G1-G5 for statues(critically imperilled, imperilled, vulnerable, apparantly secured, secured), the rest of the G values were grouped in a GG status which we droped because of those species being extinct, finally we group all the null values together.
+
+The data is then cleaned and separated by ParkName and GRank, to count species in each category. The aggregated data is melted into a wide format to create columns for each GRank and then converted back into long format in preparation for stacked bar plotting in ggplot2.
+
+        
+
+### Discussion:
+
+The analysis of species conservation status across the 15 most visited U.S. national parks reveals notable differences in the distribution of species and their conservation statuses. Parks such as Great Smoky Mountains and Grand Canyon exhibit a high total number of species, with a larger proportion of those species categorized as "Secured" (green). This suggests that these parks may be successfully supporting stable populations of species, possibly due to ongoing conservation efforts or favorable environmental conditions.
+On the other hand, parks like Bryce Canyon and Joshua Tree show a higher proportion of species classified as "Critically Imperilled" (red), indicating that these parks face greater ecological challenges and may require more targeted conservation strategies. The presence of such species underscores the urgent need for preserving vulnerable ecosystems and preventing further species loss.
+The "Unknown" (black) category across all parks points to the ongoing uncertainty in conservation status for many species, highlighting the need for continued data collection and research to fill these gaps. Parks with a higher percentage of species with "Unknown" statuses may benefit from more extensive monitoring and assessment programs.
+Geographically, the distribution of conservation statuses provides insight into the ecological diversity across national parks. Parks in different regions, such as Yosemite and Yellowstone, exhibit different patterns in species distribution and conservation status, reflecting regional environmental pressures and conservation needs.
+
+## Species Distribution by Category Across the Parks (Question 2).
+
+### Introduction:
+
+For our second question we try to know: ***How are species distributed across national parks by category?***
+
+We believe that the representation of various taxonomic groups, including mammals, birds, reptiles, and plants, across national parks is significant in identifying the **peculiar ecological features** contained in each protected area. This question focuses on the representation of various taxonomic groups in the national parks. To address this question, we considered the similarity between park names, species groups, and numbers of species per group. This question reveals the individual ecological fingerprints of each park, possibly assisting in guiding conservation actions and indicating which parks visitors might find most attractive based on their interests in wildlife.
+
+### Approach:
+
+To address this issue we plan to have a
+
+-   **Bubble Plot:** Every national park will be represented as a bubble, with species count as the overall bubble size. The ratio of each pie chart slice to represent different categories of species will be indicated through the pie chart slices. The bubble plot setting is ideal for this examination because it allows us to represent multiple dimensions of data at once: the total species richness (bubble size), the relative distribution among categories (pie slices), and the comparison among all parks (bubble configuration).
+
+
+### Analysis:
+
+A Mapping is set up to group the many possible CategoryName tags into five broad categories: Vertebrates, Invertebrates, Plants, Fungi, and Microorganisms. The program applies this mapping so that the rows now contain only one of those five large groupings.To remove duplicates step by step because the dataset will probably have some—multiple instances of the same species in one park—the program removes those duplicates. First, it filters so that each (ParkName, CommonNames) combination occurs only once, and then it excludes duplicates within a park's scientific names. Following these filtering steps, every species has a single occurrence per park, integrity of the data maintained.
+
+The data is summarized in two ways broadly next. One process counts the species by park, creating a count to be utilized in calculating every park's bubble size. The second step groups by (ParkName, Category) and counts the number of species in each of the five major categories. The counts are rearranged in a wide format (one column per category) such that each row for a park contains how many species fall into Vertebrates, Invertebrates, etc.
+
+
+### Discussion:
+
+The analysis of species distribution across national parks by category revealed notable differences in the taxonomic composition of species. For example, parks like the Great Smoky Mountains exhibited a more balanced representation across various taxonomic categories, with significant proportions of species in Invertebrates, Plants, and Vertebrates. This indicates that the park is home to a rich and diverse range of species across different groups, which may be a result of its varied ecosystems and favorable environmental conditions.
+
+In contrast, other parks, such as Cuyahoga Valley and Acadia, showed a more skewed distribution, with a higher proportion of Plants and a relatively lower representation of Invertebrates or Vertebrates. These parks may have unique ecological features that support plant diversity but limit the abundance of other species categories.
+
+The Great Smoky Mountains stood out with its large total number of species, suggesting that it serves as a biodiversity hotspot. The relative abundance of Invertebrates and Plants in these parks highlights the importance of preserving habitats that support these groups, which play crucial roles in the ecosystem. The pie chart also emphasized that species in the Microorganisms category, though less represented in some parks, are an important part of the biodiversity in every park.
+
+The spatial visualization provided by the map allowed us to observe how parks with larger species populations, such as Grand Canyon and Yellowstone, tend to have a more diverse range of taxonomic categories. In contrast, parks with fewer species, such as Joshua Tree, showed a less varied distribution across categories. This may reflect the size of the park, environmental conditions, and the availability of suitable habitats for various species.
+
+In conclusion, the species distribution analysis revealed that each national park has unique ecological characteristics that influence the representation of different species categories. The findings suggest that conservation efforts should take into account not only the total number of species in a park but also the taxonomic diversity to ensure comprehensive protection of these ecosystems.
