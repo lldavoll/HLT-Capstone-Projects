@@ -1,0 +1,84 @@
+---
+title: "Visualization of Climate Impacts on Corn Production and Price Using Quarto and ggplot"
+subtitle: "Proposal"
+authors: Kapadia, Kkshitij @kapadia21
+         Patel, Het @hetpatel-7
+         Acevedo Cardona, Davo @lldavoll
+         Muhammed Aamir Naveed, FNU @FNU Muhammed Aamir Naveed
+name: "Trend Setters"
+    affiliations:
+      - Kapadia, Kkshitij: ", University of Arizona"
+      - Davo Acevedo: "College of Behavioural Sciences, University of Arizona"
+      - Muhammed Aamir Naveed, FNU: ", University of Arizona"
+      - Patel, Het: ", University of Arizona"
+description: "Data Visualization"
+format:
+  html:
+    code-tools: true
+    code-overflow: wrap
+    code-line-numbers: true
+    embed-resources: true
+editor: visual
+code-annotations: hover
+execute:
+  warning: false
+---
+
+```{r}
+#| label: load-pkgs
+#| message: false
+library(tidyverse)
+```
+
+## Dataset
+
+```{r}
+#| label: load-dataset
+#| message: false
+```
+
+About our project...
+
+Our project focuses on the study of climate variability and the economics of corn production, considering the effects of trends in temperature and precipitation on farm yields and market instability over a period staring from 2010 until 2024. What we are trying to present is the interactions between environmental factors and one of the most valuable crops in the state of Iowa, United States.
+We've selected the "CORN ETF Stock Price History" dataset as our primary financial indicator, which tracks daily market performance of corn futures via a tradable financial instrument. This broad dataset contains approximately 3,600 daily observations across 6 significant variables, providing a detailed 14-year history of market responses.
+
+To approach this research, we're consider to use regional climate data from agricultural heartlands in Iowa, we plan to include temperature anomalies, precipitation patterns, and drought indices. So, we can create a cross dimensional narrative about agricultural performance with all the climate changes that overpass the earth in the last decade. 
+
+For this project we plan to use the R visualization capabilities, particularly ggplot2 for static visualizations and plotly for interactive elements, we plan to develop a compelling visual story that reveals how climate variability increasingly drives agricultural market volatility.
+We just want to highlight the imperative for readily available data communication at the intersection of climate science and agricultural economics as we think is a pivotal point as global food systems respond to unprecedented environmental change.
+
+The Dataset:
+
+Sources: 
+-The name of the dataset is CORN_ETF_Stock_Price_History.csv and it comes from https://www.investing.com/etfs/teucrium-corn-historical-data 
+-Iowa temperature and precipitation: https://data.idph.state.ia.us/t/IDPH-DataViz/views/TemperatureandPrecipitation/TemperatureandPrecipitation?iframeSizedToWindow=true&%3Aembed=y&%3AshowAppBanner=false&%3Adisplay_count=no&%3AshowVizHome=no&%3Arender=false
+-Corn Price: https://quickstats.nass.usda.gov/#364CE9FB-D3A5-32D8-90BB-C2B72E6AD99A
+
+Dimensions: This dataset has the following dimensions...
+
+Number of rows: 3,439  rows 
+Number of columns: 7 columns (variables)
+
+Key Variables: 
+-Date: The trading day.
+-Price: The closing price on that date.
+-Open: The price at market open.
+-High: The highest price reached during the day.
+Low: The lowest price of the day.
+Vol.: Daily trading volume.
+Change %: The daily percentage change in price.
+
+
+## **Weekly “Plan of Attack”**
+
+| Task Name                           | Status    | Assignee | Due        | Priority | Summary                                                    |
+|-------------------------------------|-----------|----------|------------|----------|------------------------------------------------------------|
+| Data Cleaning & Preprocessing       | Not Started | Davo, Het | Apr 10     | High     | Clean CORN ETF data, format `Vol.` and `Change %`, convert date |
+| Data Integration                    | Not Started | Kkshitij  | Apr 14     | Moderate | Merge climate and ETF datasets, align by time period |
+| Exploratory Data Analysis (EDA)     | Not Started | Kkshitij, Naveed | Apr 17 | Moderate | Visualize trends, check correlations, inspect missing values |
+| Draft Initial Visuals               | Not Started | Group      | Apr 19     | High  | Create time series and scatter plots using ggplot2|
+| Begin Writing Proposal Draft        | Not Started | Davo     | Apr 21     | Moderate | Describe motivation, dataset, methodology |
+| Add Climate Impact Analysis         | Not Started | Het, Kkshitij  | Apr 24  | Moderate | Focus on how temp/precip trends align with price & production|
+| Add Spatio-Temporal Visualizations  | Not Started | Group      | Apr 27     | High     | Explore adding animation or interaction using `plotly`|
+| Polish Visuals & Style              | Not Started | Naveed      | Apr 30     | Low      | Apply consistent ggplot2 themes, accessible colors |
+| Final Submission                    | Not Started | Group      | May 7      | High     | Submit project after revision and feedback   |

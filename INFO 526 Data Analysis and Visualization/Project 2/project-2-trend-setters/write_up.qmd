@@ -1,0 +1,154 @@
+---
+title: "Visualizing Climate Impacts on Corn Production and Price"
+subtitle: "INFO 526 - Spring 2025 - Write Up Project 02"
+authors: Kapadia, Kkshitij @kapadia21
+         Patel, Het @hetpatel-7
+         Acevedo Cardona, Davo @lldavoll
+         Muhammed Aamir Naveed, FNU @FNU Muhammed Aamir Naveed
+  - name: "Trend Setters"
+        affiliations:
+      - Kapadia, Kkshitij: ", University of Arizona"
+      - Davo Acevedo: "College of Behavioural Sciences, University of Arizona"
+      - Muhammed Aamir Naveed, FNU: ", University of Arizona"
+      - Patel, Het: ", University of Arizona" 
+description: "Project Write-up"
+format:
+   html:
+    code-tools: true
+    code-overflow: wrap
+    embed-resources: true
+editor: visual
+execute:
+  warning: false
+  echo: false
+---
+
+# Introduction
+
+Corn is a critical agricultural daily need, and understanding the relationship between its market price and environmental factors is important for economic planning. Our project investigates how seasonal and long-term climate variables can influence corn prices across the state of Iowa in United States.
+
+The data used in this study comes from three main sources:
+
+-   [**NOAA National Centers for Environmental Information (NCEI)**](https://data.idph.state.ia.us/t/IDPH-DataViz/views/TemperatureandPrecipitation/TemperatureandPrecipitation?iframeSizedToWindow=true&%3Aembed=y&%3AshowAppBanner=false&%3Adisplay_count=no&%3AshowVizHome=no&%3Arender=false): Monthly average temperature and precipitation data from 2000 to 2024.
+-   [**USDA National Agricultural Statistics Service (NASS)**:](https://quickstats.nass.usda.gov/#364CE9FB-D3A5-32D8-90BB-C2B72E6AD99A) Historical corn production data.
+-   [**Investing**:](https://www.investing.com/etfs/teucrium-corn-historical-data) Monthly-adjusted stock prices for major corn producers or ETF indexes tracking corn prices (2011–2024).
+
+### **Our Key variables are:**
+
+\- `Month`: Categorical variable from January to December
+
+\- `Avg_Temperature`: Monthly average temperature (°F)
+
+\- `Total_Precipitation`: Monthly total precipitation (inches)
+
+\- `Adjusted_Corn_Price`: Adjusted monthly corn price (USD)
+
+\- `Date`: Time reference for long-term analysis
+
+We try to aim this study on how climate variability and the economics of corn production coexists, considering the effects of trends in temperature and precipitation on farm yields and market instability over a period staring from 2010 until 2024.
+
+It's important to present this interactions between environmental factors and one of the most valuable crops in the state of Iowa, United States. We've selected the ["CORN ETF Stock Price History"](https://github.com/INFO526-SP25/project-2-trend-setters/tree/main/data) dataset as our primary financial indicator, which tracks daily market performance of corn futures via a tradable financial instrument. This broad dataset contains approximately 3,600 daily observations across 6 significant variables, providing a detailed 14-year history of market responses.
+
+# Justification of Approach
+
+We theorized that climate patterns specifically seasonal trends could be tied to corn prices. Our main approach is on:
+
+-   Monthly averages: for inspecting seasonality
+
+-   LOESS smoothing: for identifying long-term trends
+
+-   Dual-axis and layered plots: for joining climate and economic data in an easy-to-understand way
+
+To achieve these we used:
+
+-   ggplot2 for static, publication-quality figures
+
+-   plotly for interactive breakdowns season by season
+
+-   LOESS smoothing to uncover longer-term patterns over time
+
+-   Inflation adjustment with CPI to allow economic data to be compared between years.
+
+We utilized a collection of R packages like tidyverse for data wrangling, lubridate for handling date-time data, ggplot2 for generating compact, publication-quality plots, and plotly for interactive exploratory visualization. To reduce the noise and clean data we utilize LOESS (Locally Estimated Scatterplot Smoothing) which allows us to emphasize seasonality and smooth changes over time.
+
+Reversing certain temperature scales on the visualizations was a deliberate choice to make opposing trends (e.g., rising temperature and falling prices) easier to read visually. This approach is beneficial towards our goal of making relationships immediately available to a non-technical audience.
+
+In addition, by presenting inflation-adjusted price data, we adjusted for economic distortions, so trends expressed real-world value rather than monetary fluctuations. This was especially important when comparing prices over multiple decades.
+
+This approach enables a macro (long-term) as well as a micro (seasonal) perspective, which is valuable in agriculture economics since both time frames are significant.
+
+# Codes:
+
+We utilized three codes for this study that can be found in this repository:
+
+-   [**Adjusting_For_Inflation.R**](https://github.com/INFO526-SP25/project-2-trend-setters/blob/main/Adjusting_For_Inflation.R)**:** This script inflates corn prices and stock prices using the Consumer Price Index (CPI). Having standarized values is important for a better interpretation and visualization of the data.
+
+-   [**Seasonal_Price_Dynamics.R**](https://github.com/INFO526-SP25/project-2-trend-setters/blob/main/Seasonal_Price_Dynamics.R)**:** This script creates the interactive visualizations with Plotly to show all three variables stacked by month looking at the seasonal dynamics between:
+
+```         
+-   Average temperature (which is inverted for alignment)
+
+-   Precipitation
+
+-   Adjusted corn price
+```
+
+-   [**Stock_vs_Temp.R**](https://github.com/INFO526-SP25/project-2-trend-setters/blob/main/Stock_vs_Temp.R)**:** This code produces the two-axis line plot with the stock price normalized to the same scale as the temperature in long-term trends between 2000 and 2024 with LOESS smoothing to assist in the detection of underlying trends.
+
+# Visualizations:
+
+To explore how is the relation between the crops and tempeture we created 5 plots:
+
+![](corn_price.png)
+
+-   **Figure 1: Triple Seasonal Overlay:** With plotly we created a plot to reveal price peaks aligned with cool, wet months.
+
+![](corn_price_precip.png)
+
+-   **Figure 2: Precipitation vs. Price** Precipitation more strongly correlates with price than temperature.
+
+![](corn_temp_price.png)
+
+-   **Figure 3: Temperature vs. Price:** With ggplot we created a plot that inverse visual trend that supports climate sensitivity.
+
+![](seasonal_dynamics_r.png)
+
+-   **Figure 4: Smooth Seasonal Lines:** Monthly breakdowns clarified with LOESS regression.
+
+![](stocktemp.png)
+
+-   **Figure 5: Long-Term Dual-Axis Trends:** Illustrates decoupling between warming temperatures and falling prices.
+
+# Discussion:
+
+Our most valuable findings are:
+
+-   Corn prices are most expensive in May and June, coinciding with plenty of rain and moderate temperatures.
+
+-   When July and August heat dries up, prices decline one possible reason could be heat stress effect.
+
+-   Rain appears to have a more straightforward effect on price fluctuation compared to temperature.
+
+One interesting thing in this case is that rising temperatures after 2000 have not increased prices that could be triggered by disruptions in yields, volatility in the market, or greater production uncertainty that can erode profitability irrespective of demand.\
+\
+In the longer-term perspective, the visualizations show there is a sharp warming trend in average temperature after 2000. Contrarily, this warming is not preceded by inflation-adjusted corn prices increasing. What we observe is a very volatile but overall decreasing trend in stock prices of corn-related ones. This apparent decoupling is concerning because despite the climate becoming more volatile, profitability may not rise.\
+\
+With some research, these results align with agricultural economics literature. Schlenker & Roberts (2009) demonstrated that crop yields decrease significantly when temperatures pass beyond some physiological limits. AS well as, Lobell et al. (2011) stressed that climate variability presents a grave threat to food security in agriculturally reliant economies. The USDA also places emphasis on precipitation as a primary driver in crop yield prediction models.\
+\
+Together, our interannual and seasonal analysis lends credibility to the idea that climate variability, regardless the extreme temperatures and precipitation it has tangible impacts on agriculture markets. By plotting these trends, we more easily enable multifaceted relationships to be understood by audiences ranging from farmers to policymakers.
+
+# Conclusion:
+
+Through the integration of climate and commodity data graphically, we uncovered long-term warning signals and seasonal relationships that may impact corn yields and prices. Seasonal patterns suggest that rainfall is an important variable that affects market behavior, while temperature may serve as a limiting factor during periods of critical growth.
+
+Our longer-term forecasts suggest that producers would not necessarily benefit from warmer temperatures and increased volatility, particularly if these trends reduce the reliability of yields or increase the production cost. This is an argument for adaptive farm management, such as water management, heat-resistant varieties, and insurance schemes.
+
+The application of interactive and static data visualization libraries such as `ggplot2` and `plotly` allowed us to present these results in an interpretable and accessible form. Of great significance, this project shows how judicious data visualization can close the loop between raw data and decision-making in climate-vulnerable industries such as agriculture.\
+\
+In the future, such tools and methodologies can aid scenario planning, early warning systems, and educational outreach enabling agricultural stakeholders to learn to adapt in a changing climate. By plotting climate and commodity data, we found strong seasonality dependencies and long-term early warning signs in corn production. Data visualization with interactive tools and smoothed trends, in particular, shows relationships that are not that clear of explicit in raw data.
+
+# Citations:
+
+-   W. Schlenker, & M.J. Roberts, Nonlinear temperature effects indicate severe damages to U.S. crop yields under climate change, Proc. Natl. Acad. Sci. U.S.A. 106 (37) 15594-15598, <https://doi.org/10.1073/pnas.0906865106> (2009).
+
+-   David B. Lobell, Climate change adaptation in crop production: Beware of illusions, Global Food Security, Volume 3, Issue 2, 2014, Pages 72-76, ISSN 2211-9124, <https://doi.org/10.1016/j.gfs.2014.05.002.>
